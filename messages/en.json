@@ -1,0 +1,143 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "cta": "Start a conversation"
+  },
+  "hero": {
+    "badge": "Northeast Brazilian Software House",
+    "headline_1": "Builds with",
+    "headline_2": "the region,",
+    "headline_3": "not for the region.",
+    "description": "We create technology solutions with real, clear, and long-term results for businesses and people in Northeast Brazil.",
+    "cta_primary": "Start a conversation",
+    "cta_secondary": "Explore services",
+    "scroll_hint": "Explore"
+  },
+  "services": {
+    "label": "Services",
+    "title": "What we build",
+    "description": "Every project starts with real listening. No feature is added without evidence of need.",
+    "items": {
+      "web": {
+        "title": "Web Development",
+        "description": "Landing pages, systems, and platforms built with a modern stack, optimized performance, and measurable results."
+      },
+      "diagnosis": {
+        "title": "Digital Diagnosis",
+        "description": "Technical analysis of your digital presence. Identifies bottlenecks, opportunities, and the next concrete step."
+      },
+      "automation": {
+        "title": "Operational Automations",
+        "description": "Workflows that eliminate repetitive manual work and connect tools already used by the team."
+      },
+      "consulting": {
+        "title": "Technology Consulting",
+        "description": "Strategic and technical guidance for companies that need to make technology decisions with more clarity."
+      },
+      "training": {
+        "title": "Technical Training",
+        "description": "Practical technology training for teams — from basics to advanced use of digital tools."
+      },
+      "maintenance": {
+        "title": "Support & Maintenance",
+        "description": "Ongoing monitoring of production systems, with fast response and planned evolution."
+      }
+    }
+  },
+  "values": {
+    "label": "Principles",
+    "title": "Values that filter, not decorate",
+    "description": "Each value is a decision ruler. It passes the filter, it moves forward. It doesn't pass, it doesn't enter.",
+    "items": {
+      "result": {
+        "title": "Results over appearances",
+        "description": "We deliver what solves the problem — not what impresses in a meeting."
+      },
+      "access": {
+        "title": "Accessibility without paternalism",
+        "description": "State-of-the-art technology that's accessible. Without oversimplifying or treating the client as a layperson."
+      },
+      "northeast": {
+        "title": "Commitment to the Northeast",
+        "description": "We grow with the region. We don't just provide services here — we build here."
+      },
+      "dialogue": {
+        "title": "Dialogue before solution",
+        "description": "No project starts without understanding the real problem. The solution is a consequence of listening."
+      },
+      "growth": {
+        "title": "Growth without inequality",
+        "description": "Our success only counts if clients and the region grow with us. Not in parallel."
+      },
+      "longterm": {
+        "title": "Long-term focus",
+        "description": "We build to last. Short-term decisions that compromise the future don't make it in."
+      }
+    }
+  },
+  "about": {
+    "label": "About",
+    "title": "The roots are northeastern",
+    "description": "CCP NEXATECH was born in Fortaleza/CE with a clear stance: cutting-edge technology is not exclusive to southern Brazil.",
+    "mission_label": "Mission",
+    "mission": "Create technology solutions that generate objective, clear, and long-term results for businesses and people in Northeast Brazil.",
+    "founder_label": "Founder",
+    "founder_name": "Caio César Passos Viana Ponte",
+    "founder_location": "Fortaleza, Ceará",
+    "founder_bio": "Northeastern developer and entrepreneur. Built NEXATECH with a simple premise: the region needs technology that understands its pain points — not imported tech that ignores local context.",
+    "stack_label": "Stack",
+    "cta": "Start a conversation"
+  },
+  "platform": {
+    "label": "Anchor project",
+    "title": "Conecta Nordeste",
+    "subtitle": "In development",
+    "description": "Platform that maps, connects, and gives visibility to the Northeast technology ecosystem — people, companies, projects, and events.",
+    "feature_1": "Verified profiles via LinkedIn and GitHub",
+    "feature_2": "Visual map of the northeastern ecosystem",
+    "feature_3": "Qualified connections between talent and companies",
+    "feature_4": "Real visibility for those building in the region",
+    "cta": "Follow the project"
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Start a conversation",
+    "description": "We don't pitch. We ask questions. The conversation starts with: what's the problem no one has solved well for you?",
+    "form": {
+      "name": "Name",
+      "name_placeholder": "Your full name",
+      "email": "Email",
+      "email_placeholder": "your@email.com",
+      "company": "Company (optional)",
+      "company_placeholder": "Company name",
+      "message": "Message",
+      "message_placeholder": "Tell us what problem you want to solve...",
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "success": "Message sent! We'll get back to you soon.",
+      "error": "Something went wrong. Try again or contact us via LinkedIn."
+    },
+    "linkedin": "Connect on LinkedIn",
+    "location": "Fortaleza, Ceará — Northeast Brazil"
+  },
+  "footer": {
+    "tagline": "Builds with the region, not for the region.",
+    "links_label": "Links",
+    "legal_label": "Legal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "copyright": "© {year} CCP NEXATECH. All rights reserved.",
+    "made_in": "Made in the Northeast"
+  },
+  "seo": {
+    "about_title": "About CCP NEXATECH",
+    "about_description": "Northeast Brazilian software house founded in Fortaleza/CE. Builds technology solutions with real results for the Northeast.",
+    "services_title": "Technology Services",
+    "services_description": "Web development, digital diagnosis, automations, consulting, and technology training for companies in Northeast Brazil.",
+    "contact_title": "Talk to CCP NEXATECH",
+    "contact_description": "Start a conversation. We don't pitch — we ask questions to understand your real problem."
+  }
+}

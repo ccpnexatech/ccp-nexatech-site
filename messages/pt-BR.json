@@ -1,0 +1,143 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "services": "Serviços",
+    "contact": "Contato",
+    "cta": "Iniciar conversa"
+  },
+  "hero": {
+    "badge": "Software House Nordestina",
+    "headline_1": "Constrói com",
+    "headline_2": "a região,",
+    "headline_3": "não para a região.",
+    "description": "Criamos soluções tecnológicas com resultado real, claro e de longo prazo para empresas e pessoas do Nordeste.",
+    "cta_primary": "Iniciar uma conversa",
+    "cta_secondary": "Conhecer os serviços",
+    "scroll_hint": "Explorar"
+  },
+  "services": {
+    "label": "Serviços",
+    "title": "O que construímos",
+    "description": "Cada projeto começa com escuta real. Nenhuma funcionalidade entra sem evidência de necessidade.",
+    "items": {
+      "web": {
+        "title": "Desenvolvimento Web",
+        "description": "Landing pages, sistemas e plataformas construídas com stack moderno, performance otimizada e foco em resultado mensurável."
+      },
+      "diagnosis": {
+        "title": "Diagnóstico Digital",
+        "description": "Análise técnica da presença digital da empresa. Identifica gargalos, oportunidades e o próximo passo concreto."
+      },
+      "automation": {
+        "title": "Automações Operacionais",
+        "description": "Fluxos que eliminam trabalho manual repetitivo e conectam ferramentas já usadas pela equipe."
+      },
+      "consulting": {
+        "title": "Consultoria em Tecnologia",
+        "description": "Orientação estratégica e técnica para empresas que precisam tomar decisões de tecnologia com mais clareza."
+      },
+      "training": {
+        "title": "Treinamento Técnico",
+        "description": "Capacitação prática em tecnologia para equipes — do básico ao uso avançado de ferramentas digitais."
+      },
+      "maintenance": {
+        "title": "Suporte e Manutenção",
+        "description": "Acompanhamento contínuo de sistemas em produção, com resposta rápida e evolução planejada."
+      }
+    }
+  },
+  "values": {
+    "label": "Princípios",
+    "title": "Valores que filtram, não decoram",
+    "description": "Cada valor é uma régua de decisão. Passa pelo filtro, avança. Não passa, não entra.",
+    "items": {
+      "result": {
+        "title": "Resultado antes de aparência",
+        "description": "Entregamos o que resolve o problema — não o que impressiona em reunião."
+      },
+      "access": {
+        "title": "Acessibilidade sem paternalismo",
+        "description": "Tecnologia de ponta acessível. Sem simplificar demais, sem tratar o cliente como leigo."
+      },
+      "northeast": {
+        "title": "Compromisso com o Nordeste",
+        "description": "Crescemos junto com a região. Não apenas prestamos serviço aqui — construímos aqui."
+      },
+      "dialogue": {
+        "title": "Diálogo antes de solução",
+        "description": "Nenhum projeto começa sem entender o problema real. A solução é consequência da escuta."
+      },
+      "growth": {
+        "title": "Crescimento sem desigualdade",
+        "description": "Nosso sucesso vale se os clientes e a região crescem junto. Não em paralelo."
+      },
+      "longterm": {
+        "title": "Foco em longo prazo",
+        "description": "Construímos para durar. Decisões de curto prazo que comprometem o futuro não entram."
+      }
+    }
+  },
+  "about": {
+    "label": "Sobre",
+    "title": "A raiz é nordestina",
+    "description": "A CCP NEXATECH nasceu em Fortaleza/CE com uma postura clara: tecnologia de ponta não é exclusividade do Sul e Sudeste.",
+    "mission_label": "Missão",
+    "mission": "Criar soluções tecnológicas que gerem resultados objetivos, claros e de longo prazo para empresas e pessoas do Nordeste.",
+    "founder_label": "Fundador",
+    "founder_name": "Caio César Passos Viana Ponte",
+    "founder_location": "Fortaleza, Ceará",
+    "founder_bio": "Desenvolvedor e empreendedor nordestino. Construiu a NEXATECH com uma premissa simples: a região precisa de tecnologia que entende suas dores — não tecnologia importada que ignora o contexto local.",
+    "stack_label": "Stack",
+    "cta": "Iniciar uma conversa"
+  },
+  "platform": {
+    "label": "Projeto âncora",
+    "title": "Conecta Nordeste",
+    "subtitle": "Em desenvolvimento",
+    "description": "Plataforma que mapeia, conecta e dá visibilidade ao ecossistema de tecnologia do Nordeste — pessoas, empresas, projetos e eventos.",
+    "feature_1": "Perfis verificados via LinkedIn e GitHub",
+    "feature_2": "Mapa visual do ecossistema nordestino",
+    "feature_3": "Conexões qualificadas entre talentos e empresas",
+    "feature_4": "Visibilidade real para quem constrói na região",
+    "cta": "Acompanhar o projeto"
+  },
+  "contact": {
+    "label": "Contato",
+    "title": "Inicia uma conversa",
+    "description": "Não fazemos pitch. Fazemos perguntas. A conversa começa com: qual é o problema que ninguém te entregou bem?",
+    "form": {
+      "name": "Nome",
+      "name_placeholder": "Seu nome completo",
+      "email": "E-mail",
+      "email_placeholder": "seu@email.com",
+      "company": "Empresa (opcional)",
+      "company_placeholder": "Nome da empresa",
+      "message": "Mensagem",
+      "message_placeholder": "Conte qual problema você quer resolver...",
+      "submit": "Enviar mensagem",
+      "submitting": "Enviando...",
+      "success": "Mensagem enviada! Entraremos em contato em breve.",
+      "error": "Algo deu errado. Tente novamente ou entre em contato pelo LinkedIn."
+    },
+    "linkedin": "Falar pelo LinkedIn",
+    "location": "Fortaleza, Ceará — Nordeste do Brasil"
+  },
+  "footer": {
+    "tagline": "Constrói com a região, não para a região.",
+    "links_label": "Links",
+    "legal_label": "Legal",
+    "privacy": "Privacidade",
+    "terms": "Termos",
+    "copyright": "© {year} CCP NEXATECH. Todos os direitos reservados.",
+    "made_in": "Feito no Nordeste"
+  },
+  "seo": {
+    "about_title": "Sobre a CCP NEXATECH",
+    "about_description": "Software house nordestina fundada em Fortaleza/CE. Constrói soluções tecnológicas com resultado real para o Nordeste.",
+    "services_title": "Serviços de Tecnologia",
+    "services_description": "Desenvolvimento web, diagnóstico digital, automações, consultoria e treinamento em tecnologia para empresas do Nordeste.",
+    "contact_title": "Fale com a CCP NEXATECH",
+    "contact_description": "Inicie uma conversa. Não fazemos pitch — fazemos perguntas para entender o seu problema real."
+  }
+}
