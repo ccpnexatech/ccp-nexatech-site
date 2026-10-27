@@ -76,11 +76,16 @@ async function igit() {
   };
 }
 
+const why = (e: unknown) => {
+  const c = (e as { cause?: { code?: string; message?: string } })?.cause;
+  return c ? `${String(e)} — ${c.code ?? ""} ${c.message ?? ""}`.trim() : String(e);
+};
+
 export async function GET() {
   const [gh, ig] = await Promise.allSettled([github(), igit()]);
   return NextResponse.json({
     fetchedAt: new Date().toISOString(),
-    github: gh.status === "fulfilled" ? { ok: true, ...gh.value } : { ok: false, error: String(gh.reason) },
-    igit: ig.status === "fulfilled" ? { ok: true, ...ig.value } : { ok: false, error: String(ig.reason) },
+    github: gh.status === "fulfilled" ? { ok: true, ...gh.value } : { ok: false, error: why(gh.reason) },
+    igit: ig.status === "fulfilled" ? { ok: true, ...ig.value } : { ok: false, error: why(ig.reason) },
   });
 }
