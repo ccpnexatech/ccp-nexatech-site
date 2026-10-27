@@ -9,9 +9,9 @@
     "cta": "Get in touch"
   },
   "contact": {
-    "label": "07 · contact",
-    "title": "Let's talk?",
-    "description": "Have a Front-End, Mobile or React Native role, or a project in mind? Tell me. I answer personally.",
+    "label": "Contact",
+    "title": "Professional contact.",
+    "description": "Available for Front-End, Mobile or React Native Developer roles, remote or in Fortaleza. Send me the details of the opportunity.",
     "form": {
       "name": "Name",
       "name_placeholder": "Your full name",
@@ -20,11 +20,14 @@
       "company": "Company (optional)",
       "company_placeholder": "Company name",
       "message": "Message",
-      "message_placeholder": "Tell me about the role or project...",
+      "message_placeholder": "Company, role and next steps",
       "submit": "Send message",
       "submitting": "Sending...",
-      "success": "Message sent! I'll reply soon.",
-      "error": "Something went wrong. Try again or contact us via LinkedIn."
+      "success": "Message sent. I'll get back to you shortly.",
+      "error": "Something went wrong. Try again or contact us via LinkedIn.",
+      "error_name": "Enter your name (at least 2 letters).",
+      "error_email": "Enter a valid email.",
+      "error_message": "Write at least 10 characters."
     },
     "linkedin": "Message me on LinkedIn",
     "location": "Fortaleza, Brazil — remote or on-site"

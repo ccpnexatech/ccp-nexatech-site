@@ -1,66 +1,52 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { useState } from "react";
+import { useLocale } from "next-intl";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { LocaleSwitcher } from "./locale-switcher";
-import { cn } from "@/lib/cn";
 
-const NAV = ["about", "projects", "experience", "stack", "education", "goals"] as const;
-const ANCHOR: Record<(typeof NAV)[number], string> = {
-  about: "sobre", projects: "projetos", experience: "experiencia", stack: "stack", education: "formacao", goals: "objetivos",
+const NAV = {
+  pt: [["#entrego", "O que entrego"], ["#bastidores", "Bastidores"], ["#capitulos", "Trajetória"], ["#metricas", "Métricas"], ["#projetos", "Projetos"]],
+  en: [["#entrego", "What I deliver"], ["#bastidores", "Backstage"], ["#capitulos", "Path"], ["#metricas", "Metrics"], ["#projetos", "Projects"]],
 };
 
 export function Header() {
-  const t = useTranslations("nav");
   const locale = useLocale();
-  const [scrolled, setScrolled] = useState(false);
+  const lang = locale === "en" ? "en" : "pt";
   const [open, setOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 140, damping: 30 });
 
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 16);
-    window.addEventListener("scroll", h, { passive: true });
-    return () => window.removeEventListener("scroll", h);
-  }, []);
-
   return (
-    <header className={cn("fixed inset-x-0 top-0 z-50 transition-all duration-300", scrolled ? "bg-surface-950/85 backdrop-blur-lg border-b border-surface-700/40" : "bg-transparent")}>
-      <motion.div style={{ scaleX: progress }} className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-brand-400 to-accent-400" />
-      <div className="container-site flex h-16 items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 font-mono text-sm font-bold text-white">CP</span>
-          <span className="hidden font-bold text-slate-100 sm:block">Caio Ponte</span>
-        </Link>
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
-          {NAV.map((k) => (
-            <a key={k} href={`#${ANCHOR[k]}`} className="rounded-lg px-3 py-2 text-sm font-medium text-slate-400 transition-colors hover:bg-surface-700/50 hover:text-slate-100">{t(k)}</a>
-          ))}
+    <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur">
+      <motion.div style={{ scaleX: progress }} className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-accent" aria-hidden />
+      <div className="wrap flex h-16 items-center justify-between gap-4">
+        <Link href={`/${locale}`} className="font-serif text-xl">Caio Ponte</Link>
+        <nav id="menu" tabIndex={-1} aria-label={lang === "pt" ? "Menu principal" : "Main menu"} className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {NAV[lang].map(([href, label]) => (
+              <li key={href}><a href={href} className="rounded-full px-3 py-2 text-sm font-medium text-muted hover:text-ink">{label}</a></li>
+            ))}
+          </ul>
         </nav>
         <div className="flex items-center gap-3">
-          <LocaleSwitcher className="hidden md:flex" />
-          <a href="#contact" className="hidden rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-400 md:inline-flex">{t("cta")}</a>
-          <button className="rounded-lg p-2 text-slate-400 hover:bg-surface-700/50 hover:text-slate-100 lg:hidden" onClick={() => setOpen((v) => !v)} aria-label={open ? "Fechar menu" : "Abrir menu"} aria-expanded={open}>
-            {open ? <X size={20} /> : <Menu size={20} />}
+          <LocaleSwitcher className="hidden sm:flex" />
+          <a href="#contato" className="btn-primary hidden sm:inline-flex">{lang === "pt" ? "Contato" : "Contact"}</a>
+          <button type="button" className="rounded-full p-2 md:hidden" aria-expanded={open} aria-controls="menu-movel" aria-label={open ? (lang === "pt" ? "Fechar menu" : "Close menu") : (lang === "pt" ? "Abrir menu" : "Open menu")} onClick={() => setOpen((v) => !v)}>
+            {open ? <X size={22} aria-hidden /> : <Menu size={22} aria-hidden />}
           </button>
         </div>
       </div>
-      <AnimatePresence>
-        {open && (
-          <motion.nav initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="overflow-hidden border-b border-surface-700/40 bg-surface-950/95 backdrop-blur-xl lg:hidden">
-            <div className="container-site flex flex-col gap-1 py-4">
-              {NAV.map((k) => <a key={k} href={`#${ANCHOR[k]}`} onClick={() => setOpen(false)} className="rounded-xl px-4 py-3 text-sm font-medium text-slate-300 hover:bg-surface-700/50">{t(k)}</a>)}
-              <div className="mt-3 flex items-center justify-between px-4">
-                <LocaleSwitcher />
-                <a href="#contact" onClick={() => setOpen(false)} className="rounded-xl bg-brand-500 px-4 py-2 text-sm font-semibold text-white">{t("cta")}</a>
-              </div>
-            </div>
-          </motion.nav>
-        )}
-      </AnimatePresence>
+      {open && (
+        <nav id="menu-movel" aria-label={lang === "pt" ? "Menu" : "Menu"} className="border-t border-line md:hidden">
+          <ul className="wrap flex flex-col py-3">
+            {NAV[lang].map(([href, label]) => <li key={href}><a href={href} onClick={() => setOpen(false)} className="block py-3 text-base font-medium">{label}</a></li>)}
+            <li className="pt-2"><LocaleSwitcher /></li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }

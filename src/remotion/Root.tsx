@@ -1,13 +1,16 @@
 // Entrada para renderizar os vídeos em MP4: npm run video
 import React from "react";
 import { Composition, registerRoot, staticFile } from "remotion";
-import { Showreel, SHOWREEL } from "./Showreel";
-import { ProjectReel, PROJECT_REEL } from "./ProjectReel";
+import { Documentary, DOCUMENTARY } from "./Documentary";
+import { Backstage, BACKSTAGE_REEL } from "./Backstage";
+import { BACKSTAGE } from "../content/profile";
 
 const Root: React.FC = () => (
   <>
-    <Composition id="Showreel" component={Showreel} {...SHOWREEL} defaultProps={{ lang: "pt" as const, photoSrc: staticFile("caio.jpg") }} />
-    <Composition id="ProjectReel" component={ProjectReel} {...PROJECT_REEL} defaultProps={{ slug: "ofix", lang: "pt" as const }} />
+    <Composition id="Documentario" component={Documentary} {...DOCUMENTARY} defaultProps={{ lang: "pt" as const, photoSrc: staticFile("caio.jpg") }} />
+    {BACKSTAGE.map((b) => (
+      <Composition key={b.slug} id={`Bastidores-${b.slug}`} component={Backstage} {...BACKSTAGE_REEL} defaultProps={{ slug: b.slug, lang: "pt" as const }} />
+    ))}
   </>
 );
 registerRoot(Root);

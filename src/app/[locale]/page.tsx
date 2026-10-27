@@ -1,10 +1,12 @@
 import { setRequestLocale } from "next-intl/server";
-import { Hero } from "@/components/portfolio/hero";
-import { About } from "@/components/portfolio/about";
-import { Projects } from "@/components/portfolio/projects";
-import { Experience } from "@/components/portfolio/experience";
-import { Skills } from "@/components/portfolio/skills";
-import { Education, Goals } from "@/components/portfolio/journey";
+import { Opening } from "@/components/story/opening";
+import { DeliverSection } from "@/components/story/deliver";
+import { Metrics } from "@/components/story/metrics";
+import { Chapters } from "@/components/story/chapters";
+import { BackstageSection } from "@/components/story/backstage";
+import { Daily } from "@/components/story/daily";
+import { Projects } from "@/components/story/projects";
+import { NextChapter } from "@/components/story/next";
 import { ContactForm } from "@/components/sections/contact-form";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
@@ -12,13 +14,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
   return (
     <>
-      <Hero />
-      <About />
+      <Opening />
+      <DeliverSection />
+      <BackstageSection />
+      <Chapters />
+      <Metrics />
+      <Daily />
       <Projects />
-      <Experience />
-      <Skills />
-      <Education />
-      <Goals />
+      <NextChapter />
       <ContactForm />
     </>
   );

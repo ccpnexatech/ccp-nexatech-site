@@ -9,9 +9,9 @@
     "cta": "Fale comigo"
   },
   "contact": {
-    "label": "07 · contato",
-    "title": "Vamos conversar?",
-    "description": "Tem uma vaga de Front-End, Mobile ou React Native, ou um projeto em mente? Me conta. Respondo pessoalmente.",
+    "label": "Contato",
+    "title": "Contato profissional.",
+    "description": "Disponível para vagas de Desenvolvedor Front-End, Mobile ou React Native, remotas ou em Fortaleza. Envie os detalhes da oportunidade.",
     "form": {
       "name": "Nome",
       "name_placeholder": "Seu nome completo",
@@ -20,11 +20,14 @@
       "company": "Empresa (opcional)",
       "company_placeholder": "Nome da empresa",
       "message": "Mensagem",
-      "message_placeholder": "Conte sobre a vaga ou o projeto...",
+      "message_placeholder": "Empresa, vaga e próximos passos",
       "submit": "Enviar mensagem",
       "submitting": "Enviando...",
-      "success": "Mensagem enviada! Respondo em breve.",
-      "error": "Algo deu errado. Tente novamente ou entre em contato pelo LinkedIn."
+      "success": "Mensagem enviada. Retorno em breve.",
+      "error": "Algo deu errado. Tente novamente ou entre em contato pelo LinkedIn.",
+      "error_name": "Escreva seu nome (mínimo 2 letras).",
+      "error_email": "Informe um e-mail válido.",
+      "error_message": "Escreva pelo menos 10 caracteres."
     },
     "linkedin": "Falar pelo LinkedIn",
     "location": "Fortaleza, Ceará — remoto ou presencial"
