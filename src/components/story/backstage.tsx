@@ -54,7 +54,7 @@ export function BackstageSection() {
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.35 }}>
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
               <div>
-                <BackstagePlayer slug={b.slug} lang={lang} label={pt ? `Vídeo do estudo de caso: ${b.name}` : `Case study video: ${b.name}`} />
+                <BackstagePlayer key={b.slug + lang} slug={b.slug} lang={lang} label={pt ? `Vídeo do estudo de caso: ${b.name}` : `Case study video: ${b.name}`} />
                 <p className="mt-2 text-sm text-muted">{pt ? "Vídeo renderizado com Remotion a partir dos mesmos dados desta página." : "Video rendered with Remotion from the same data as this page."}</p>
               </div>
               <dl className="space-y-6">
