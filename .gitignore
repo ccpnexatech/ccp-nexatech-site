@@ -8,4 +8,5 @@ out/
 *.tsbuildinfo
 .netlify/
 out/
-test-results/\nplaywright-report/
+test-results/
+playwright-report/
