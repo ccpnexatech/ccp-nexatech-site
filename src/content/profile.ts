@@ -346,7 +346,7 @@ export const DELIVER = [
     icon: "git-pull-request",
     h: { pt: "Entrega constante e revisada", en: "Constant, reviewed delivery" },
     p: { pt: "Mais de mil contribuições no último ano no GitLab da empresa: branches por tarefa, merge requests e revisão de código.", en: "Over a thousand contributions last year on the company GitLab: per-task branches, merge requests and code review." },
-    proof: { pt: "Ver métricas públicas", en: "See public metrics" },
+    proof: { pt: "Ver métricas de atividade", en: "See activity metrics" },
     href: "#metricas",
   },
   {

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useLocale } from "next-intl";
-import { Activity, CalendarDays, Clock, ExternalLink, FolderGit2, Flame, Gauge, GitCommitHorizontal, Github, GitlabIcon } from "lucide-react";
+import { Activity, CalendarDays, Clock, FolderGit2, Flame, Gauge, GitCommitHorizontal, Github, GitlabIcon } from "lucide-react";
 import { langOf, PROFILE } from "@/content/profile";
 import { Reveal, SectionHead } from "./reveal";
 import { cn } from "@/lib/cn";
@@ -12,32 +12,31 @@ type GH = { ok: boolean; publicRepos?: number; commits90d?: number; lastPush?: s
 type Data = { fetchedAt?: string; igit: IGit; github: GH };
 type Vital = { name: string; value: number; rating: "good" | "needs-improvement" | "poor" };
 
-const IGIT_URL = "https://igit.itarget.com.br/caio.cp";
 
 const T = {
   pt: {
-    kicker: "Métricas públicas", title: "Dados públicos e verificáveis.",
-    sub: "Contribuições no GitLab da empresa, projetos independentes no GitHub e o desempenho deste site medido no seu navegador. Atualizado a cada hora.",
-    work: "Itarget · GitLab da empresa", workNote: "Contagem pública do perfil. Repositórios e código são privados.",
+    kicker: "Métricas", title: "Atividade e desempenho.",
+    sub: "Minha atividade no GitLab interno da empresa, os projetos independentes no GitHub e o desempenho deste site medido no seu navegador.",
+    work: "Itarget · GitLab interno", workNote: "Acesso restrito à rede da empresa. Os números são exportados do meu perfil; repositórios e código são privados.",
     contributions: "contribuições em 12 meses", last30: "nos últimos 30 dias", activeDays: "dias com contribuição", streak: "dias úteis seguidos (recorde)",
     heat: "Contribuições por dia, últimos 12 meses", less: "menos", more: "mais", monthly: "Contribuições por mês", busiest: "mês mais intenso",
     gh: "GitHub · projetos independentes", repos: "repositórios públicos", commits: "commits em 90 dias", last: "último push",
     langs: "Linguagens", vitals: "Este site, medido no seu navegador", waiting: "carregando…", interact: "interaja com a página",
     unavailable: "Fonte indisponível no momento.", good: "bom", ni: "a melhorar", poor: "ruim", updated: "Atualizado",
     vnames: { LCP: "Maior conteúdo visível", CLS: "Estabilidade do layout", INP: "Resposta à interação", FCP: "Primeiro conteúdo", TTFB: "Resposta do servidor" },
-    open: "Abrir perfil", live: "Dados ao vivo ·", snap: "Snapshot do perfil público em",
+    snap: "Exportado em",
   },
   en: {
-    kicker: "Public metrics", title: "Public, verifiable data.",
-    sub: "Contributions on the company GitLab, independent projects on GitHub and this site's performance measured in your browser. Refreshed hourly.",
-    work: "Itarget · company GitLab", workNote: "Public profile count. Repositories and code are private.",
+    kicker: "Metrics", title: "Activity and performance.",
+    sub: "My activity on the company's internal GitLab, independent projects on GitHub and this site's performance measured in your browser.",
+    work: "Itarget · internal GitLab", workNote: "Restricted to the company network. Numbers are exported from my profile; repositories and code are private.",
     contributions: "contributions in 12 months", last30: "in the last 30 days", activeDays: "days with contributions", streak: "consecutive workdays (record)",
     heat: "Contributions per day, last 12 months", less: "less", more: "more", monthly: "Contributions per month", busiest: "busiest month",
     gh: "GitHub · independent projects", repos: "public repositories", commits: "commits in 90 days", last: "last push",
     langs: "Languages", vitals: "This site, measured in your browser", waiting: "loading…", interact: "interact with the page",
     unavailable: "Source unavailable right now.", good: "good", ni: "needs work", poor: "poor", updated: "Updated",
     vnames: { LCP: "Largest content paint", CLS: "Layout stability", INP: "Interaction response", FCP: "First content", TTFB: "Server response" },
-    open: "Open profile", live: "Live data ·", snap: "Public profile snapshot from",
+    snap: "Exported on",
   },
 };
 
@@ -99,7 +98,7 @@ function MonthlyBars({ byMonth, lang }: { byMonth: Record<string, number>; lang:
         {entries.map(([m, v]) => (
           <div key={m} className="flex flex-1 flex-col items-center gap-1">
             <span className="font-mono text-[10px] text-muted">{v}</span>
-            <span className="w-full rounded-t bg-accent" style={{ height: `${(v / max) * 100}%`, minHeight: 2 }} />
+            <span className="w-full rounded-t bg-accent" style={{ height: Math.max(2, Math.round((v / max) * 104)) }} />
             <span className="font-mono text-[10px] uppercase text-muted">{label(m)}</span>
           </div>
         ))}
@@ -150,9 +149,8 @@ export function Metrics() {
             <div>
               <h3 className="flex items-center gap-2 font-semibold"><GitlabIcon size={18} aria-hidden />{t.work}</h3>
               <p className="mt-1 text-sm text-muted">{t.workNote}</p>
-              {ig?.updatedAt && <p className="mt-1 text-xs text-muted">{ig.source === "live" ? t.live : t.snap} {new Date(ig.updatedAt).toLocaleDateString(loc, { day: "2-digit", month: "short", year: "numeric" })}</p>}
+              {ig?.updatedAt && <p className="mt-1 text-xs text-muted">{t.snap} {new Date(ig.updatedAt).toLocaleDateString(loc, { day: "2-digit", month: "short", year: "numeric" })}</p>}
             </div>
-            <a href={IGIT_URL} rel="noopener noreferrer" className="btn-ghost">{t.open}<ExternalLink size={14} aria-hidden /></a>
           </div>
           {ig && !ig.ok ? (
             <p className="mt-6 text-muted">{t.unavailable}</p>
