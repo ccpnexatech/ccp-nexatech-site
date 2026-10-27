@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { MotionSection } from "@/components/shared/motion-section";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/ccp-nexatech/";
+const LINKEDIN_URL = "https://www.linkedin.com/in/caio-cesar-ponte/";
 
 const contactSchema = z.object({
   name: z.string().min(2).max(100),
@@ -75,7 +75,7 @@ export function ContactForm() {
                     <p className="text-sm font-medium text-slate-200">
                       {t("linkedin")}
                     </p>
-                    <p className="text-xs text-slate-500">linkedin.com/in/ccp-nexatech</p>
+                    <p className="text-xs text-slate-500">linkedin.com/in/caio-cesar-ponte</p>
                   </div>
                 </a>
 

@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { organizationSchema, websiteSchema } from "@/lib/structured-data";
+import { personSchema, websiteSchema } from "@/lib/structured-data";
 import { fontSans, fontMono } from "@/lib/fonts";
 
 export function generateStaticParams() {
@@ -62,7 +62,7 @@ export default async function LocaleLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema()),
+            __html: JSON.stringify(personSchema()),
           }}
         />
         <script

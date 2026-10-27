@@ -5,10 +5,10 @@ export const runtime = "edge";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const title = searchParams.get("title") ?? "CCP NEXATECH";
+  const title = searchParams.get("title") ?? "Caio César Ponte";
   const description =
     searchParams.get("description") ??
-    "Software house nordestina. Constrói com a região, não para a região.";
+    "Desenvolvedor Front-End & Mobile · React, React Native e TypeScript · Fortaleza, CE";
 
   return new ImageResponse(
     (
@@ -49,10 +49,10 @@ export async function GET(req: NextRequest) {
               color: "#8AAED9",
             }}
           >
-            N
+            CP
           </div>
           <span style={{ fontSize: "18px", fontWeight: 700, color: "#E2E8F0" }}>
-            CCP NEXATECH
+            caio-cesar-ponte
           </span>
         </div>
 

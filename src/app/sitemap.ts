@@ -3,12 +3,7 @@ import { routing } from "@/i18n/routing";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ccpnexatech.com.br";
 
-const PAGES = [
-  { path: "", priority: 1.0, changeFrequency: "monthly" as const },
-  { path: "/sobre", priority: 0.8, changeFrequency: "monthly" as const },
-  { path: "/servicos", priority: 0.9, changeFrequency: "monthly" as const },
-  { path: "/contato", priority: 0.7, changeFrequency: "yearly" as const },
-];
+const PAGES = [{ path: "", priority: 1.0, changeFrequency: "monthly" as const }];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
