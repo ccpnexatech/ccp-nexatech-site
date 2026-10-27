@@ -7,7 +7,7 @@ import { langOf, PROFILE } from "@/content/profile";
 import { Reveal, SectionHead } from "./reveal";
 import { cn } from "@/lib/cn";
 
-type IGit = { ok: boolean; contributions?: number; activeDays?: number; last30?: number; perActiveDay?: number; bestStreak?: number; busiestMonth?: { month: string; count: number } | null; byMonth?: Record<string, number>; calendar?: Record<string, number> };
+type IGit = { ok: boolean; source?: "live" | "snapshot"; updatedAt?: string; contributions?: number; activeDays?: number; last30?: number; perActiveDay?: number; bestStreak?: number; busiestMonth?: { month: string; count: number } | null; byMonth?: Record<string, number>; calendar?: Record<string, number> };
 type GH = { ok: boolean; publicRepos?: number; commits90d?: number; lastPush?: string; lastRepo?: string; languages?: [string, number][] };
 type Data = { fetchedAt?: string; igit: IGit; github: GH };
 type Vital = { name: string; value: number; rating: "good" | "needs-improvement" | "poor" };
@@ -25,7 +25,7 @@ const T = {
     langs: "Linguagens", vitals: "Este site, medido no seu navegador", waiting: "carregando…", interact: "interaja com a página",
     unavailable: "Fonte indisponível no momento.", good: "bom", ni: "a melhorar", poor: "ruim", updated: "Atualizado",
     vnames: { LCP: "Maior conteúdo visível", CLS: "Estabilidade do layout", INP: "Resposta à interação", FCP: "Primeiro conteúdo", TTFB: "Resposta do servidor" },
-    open: "Abrir perfil",
+    open: "Abrir perfil", live: "Dados ao vivo ·", snap: "Snapshot do perfil público em",
   },
   en: {
     kicker: "Public metrics", title: "Public, verifiable data.",
@@ -37,17 +37,17 @@ const T = {
     langs: "Languages", vitals: "This site, measured in your browser", waiting: "loading…", interact: "interact with the page",
     unavailable: "Source unavailable right now.", good: "good", ni: "needs work", poor: "poor", updated: "Updated",
     vnames: { LCP: "Largest content paint", CLS: "Layout stability", INP: "Interaction response", FCP: "First content", TTFB: "Server response" },
-    open: "Open profile",
+    open: "Open profile", live: "Live data ·", snap: "Public profile snapshot from",
   },
 };
 
 const fmtVital = (v: Vital) => (v.name === "CLS" ? v.value.toFixed(3) : `${Math.round(v.value)} ms`);
 
 /** Mapa de calor estilo GitHub: 53 semanas × 7 dias. */
-function Heatmap({ calendar, lang }: { calendar: Record<string, number>; lang: "pt" | "en" }) {
+function Heatmap({ calendar, lang, until }: { calendar: Record<string, number>; lang: "pt" | "en"; until?: string }) {
   const t = T[lang];
   const { weeks, max } = useMemo(() => {
-    const end = new Date(); end.setUTCHours(12, 0, 0, 0);
+    const end = until ? new Date(until) : new Date(); end.setUTCHours(12, 0, 0, 0);
     const start = new Date(+end - 364 * 864e5);
     start.setUTCDate(start.getUTCDate() - start.getUTCDay()); // começa no domingo
     const weeks: { d: string; v: number }[][] = [];
@@ -57,7 +57,7 @@ function Heatmap({ calendar, lang }: { calendar: Record<string, number>; lang: "
       weeks[weeks.length - 1].push({ d, v: calendar[d] ?? 0 });
     }
     return { weeks, max: Math.max(1, ...Object.values(calendar)) };
-  }, [calendar]);
+  }, [calendar, until]);
   const level = (v: number) => (v === 0 ? 0 : v < max * 0.15 ? 1 : v < max * 0.35 ? 2 : v < max * 0.6 ? 3 : 4);
   const shade = ["bg-line", "bg-accent/30", "bg-accent/55", "bg-accent/80", "bg-accent"];
   const loc = lang === "pt" ? "pt-BR" : "en-US";
@@ -150,6 +150,7 @@ export function Metrics() {
             <div>
               <h3 className="flex items-center gap-2 font-semibold"><GitlabIcon size={18} aria-hidden />{t.work}</h3>
               <p className="mt-1 text-sm text-muted">{t.workNote}</p>
+              {ig?.updatedAt && <p className="mt-1 text-xs text-muted">{ig.source === "live" ? t.live : t.snap} {new Date(ig.updatedAt).toLocaleDateString(loc, { day: "2-digit", month: "short", year: "numeric" })}</p>}
             </div>
             <a href={IGIT_URL} rel="noopener noreferrer" className="btn-ghost">{t.open}<ExternalLink size={14} aria-hidden /></a>
           </div>
@@ -164,7 +165,7 @@ export function Metrics() {
                 <Kpi icon={Flame} value={ig?.bestStreak} label={t.streak} />
               </dl>
               <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-                <div>{ig?.calendar && <Heatmap calendar={ig.calendar} lang={lang} />}</div>
+                <div>{ig?.calendar && <Heatmap calendar={ig.calendar} lang={lang} until={ig.updatedAt} />}</div>
                 <div>
                   {ig?.byMonth && <MonthlyBars byMonth={ig.byMonth} lang={lang} />}
                   {ig?.busiestMonth && <p className="mt-3 text-sm text-muted">{t.busiest}: <span className="font-semibold text-ink">{month(ig.busiestMonth.month)}</span> · {ig.busiestMonth.count}</p>}

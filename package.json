@@ -11,7 +11,8 @@
     "video": "remotion render src/remotion/Root.tsx Documentario out/documentario.mp4 --public-dir public",
     "video:studio": "remotion studio src/remotion/Root.tsx --public-dir public",
     "audio": "tsx scripts/cues.ts && python3 scripts/audio.py",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "snapshot:igit": "node scripts/snapshot-igit.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import snapshot from "@/data/igit-calendar.json";
 
 // Métricas públicas, cacheadas por 1 hora.
 // - GitHub (projetos independentes): API pública.
@@ -41,18 +42,27 @@ async function github() {
 }
 
 async function igit() {
-  // O calendário de contribuições é público; o feed de atividade, sem login, só mostra
-  // "contribuição privada" — por isso as métricas da empresa vêm só do calendário.
-  const r = await fetch(`${IGIT}/users/${IGIT_USER}/calendar.json`, { headers: { Accept: "application/json", "User-Agent": "caio-portfolio" }, next: { revalidate } });
-  if (!r.ok) throw new Error(`iGit calendar ${r.status}`);
-  const calendar: Record<string, number> = await r.json();
+  // O calendário de contribuições é público, mas o iGit não aceita conexões de servidores
+  // externos. Tenta ao vivo por poucos segundos e, se não der, usa o snapshot versionado
+  // (npm run snapshot:igit, rodado numa máquina com acesso).
+  let calendar: Record<string, number> = snapshot.calendar;
+  let source: "live" | "snapshot" = "snapshot";
+  let updatedAt = snapshot.snapshotAt;
+  try {
+    const r = await fetch(`${IGIT}/users/${IGIT_USER}/calendar.json`, {
+      headers: { Accept: "application/json", "User-Agent": "caio-portfolio" },
+      next: { revalidate },
+      signal: AbortSignal.timeout(3000),
+    });
+    if (r.ok) { calendar = await r.json(); source = "live"; updatedAt = new Date().toISOString(); }
+  } catch { /* usa o snapshot */ }
   const days = Object.entries(calendar).sort(([a], [b]) => a.localeCompare(b));
   const total = days.reduce((n, [, v]) => n + v, 0);
   const active = days.filter(([, v]) => v > 0);
   const byMonth: Record<string, number> = {};
   for (const [d, v] of days) byMonth[d.slice(0, 7)] = (byMonth[d.slice(0, 7)] ?? 0) + v;
   const busiest = Object.entries(byMonth).sort((a, b) => b[1] - a[1])[0] ?? null;
-  const since30 = new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10);
+  const since30 = new Date(Date.parse(updatedAt) - 30 * 864e5).toISOString().slice(0, 10);
   // maior sequência de dias úteis consecutivos com contribuição (fins de semana não quebram a sequência)
   let streak = 0, best = 0, prev: Date | null = null;
   for (const [d, v] of active) {
@@ -73,6 +83,8 @@ async function igit() {
     busiestMonth: busiest ? { month: busiest[0], count: busiest[1] } : null,
     byMonth,
     calendar: Object.fromEntries(days),
+    source,
+    updatedAt,
   };
 }
 
