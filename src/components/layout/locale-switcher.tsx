@@ -24,18 +24,18 @@ export function LocaleSwitcher({ className }: { className?: string }) {
 
   return (
     <div className={cn("flex items-center gap-1", className)}>
-      <Globe size={14} className="text-slate-500" />
+      <Globe size={14} className="text-muted" aria-hidden />
       {routing.locales.map((loc) => (
         <button
           key={loc}
           onClick={() => switchLocale(loc)}
           className={cn(
-            "text-xs font-medium px-1.5 py-0.5 rounded-md transition-colors",
-            locale === loc
-              ? "text-brand-300"
-              : "text-slate-500 hover:text-slate-300"
+            "text-sm font-semibold px-1.5 py-1 rounded-md transition-colors",
+            locale === loc ? "text-ink underline underline-offset-4" : "text-muted hover:text-ink"
           )}
-          aria-label={`Switch to ${loc}`}
+          aria-label={loc === "en" ? "English" : "Português"}
+          aria-current={locale === loc ? "true" : undefined}
+          lang={loc}
         >
           {LOCALE_LABELS[loc]}
         </button>

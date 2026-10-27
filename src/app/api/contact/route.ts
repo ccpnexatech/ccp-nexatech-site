@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "CCP NEXATECH <noreply@ccpnexatech.com.br>",
+          from: "Portfólio Caio Ponte <noreply@ccpnexatech.com.br>",
           to: [contactEmail],
           reply_to: email,
           subject: `Novo contato: ${name}${company ? ` — ${company}` : ""}`,
