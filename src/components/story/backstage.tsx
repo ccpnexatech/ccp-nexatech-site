@@ -54,9 +54,7 @@ export function BackstageSection() {
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.35 }}>
             <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
               <div>
-                <div className="overflow-hidden rounded-xl border border-line">
-                  <BackstagePlayer slug={b.slug} lang={lang} label={pt ? `Vídeo de bastidores: ${b.name}` : `Backstage video: ${b.name}`} />
-                </div>
+                <BackstagePlayer slug={b.slug} lang={lang} label={pt ? `Vídeo do estudo de caso: ${b.name}` : `Case study video: ${b.name}`} />
                 <p className="mt-2 text-sm text-muted">{pt ? "Vídeo renderizado com Remotion a partir dos mesmos dados desta página." : "Video rendered with Remotion from the same data as this page."}</p>
               </div>
               <dl className="space-y-6">
@@ -73,13 +71,13 @@ export function BackstageSection() {
             <figure className="mt-12">
               <div className="overflow-hidden rounded-xl bg-stage text-stage-ink">
                 <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-2.5">
-                  <span className="font-mono text-xs text-stage-ink/80">{b.code.file}</span>
+                  <span className="flex flex-wrap items-center gap-2 font-mono text-xs text-stage-ink/80"><span className={cn("rounded px-1.5 py-0.5 font-sans font-semibold", b.code.real ? "bg-[#4ADE80]/20 text-[#86EFAC]" : "bg-white/10 text-stage-ink")}>{b.code.real ? (pt ? "código real" : "real code") : (pt ? "ilustrativo" : "illustrative")}</span>{b.code.file}</span>
                   <button type="button" onClick={copy} className="inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-stage-ink hover:bg-white/10">
                     {copied ? <Check size={14} aria-hidden /> : <Copy size={14} aria-hidden />}{copied ? (pt ? "Copiado" : "Copied") : (pt ? "Copiar código" : "Copy code")}
                   </button>
                 </div>
                 <pre className="overflow-x-auto p-5 text-[0.85rem] leading-relaxed" tabIndex={0} aria-label={pt ? `Código: ${b.code.file}` : `Code: ${b.code.file}`}>
-                  <code>{b.code.src.split("\n").map((l, k) => <div key={k} className={cn(l.includes("//") && "-mx-5 border-l-[3px] border-[#F08A4B] bg-[#F08A4B]/10 px-5")}><span aria-hidden className="mr-4 inline-block w-6 select-none text-right text-stage-ink/60">{k + 1}</span>{highlight(l)}</div>)}</code>
+                  <code>{b.code.src.split("\n").map((l, k) => <div key={k} className={cn(k === b.code.focus && "-mx-5 border-l-[3px] border-[#F08A4B] bg-[#F08A4B]/10 px-5")}><span aria-hidden className="mr-4 inline-block w-6 select-none text-right text-stage-ink/60">{k + 1}</span>{highlight(l)}</div>)}</code>
                 </pre>
               </div>
               <figcaption className="mt-2 text-sm text-muted">{pick(b.code.note, lang)} {pt ? "A linha destacada implementa a regra de negócio." : "The highlighted line implements the business rule."}</figcaption>
@@ -89,6 +87,7 @@ export function BackstageSection() {
               <p className="max-w-2xl"><span className="font-semibold">{pt ? "Resultado: " : "Outcome: "}</span>{pick(b.outcome, lang)}</p>
               <div className="flex flex-wrap items-center gap-2">
                 {b.stack.map((s) => <span key={s} className="rounded-full border border-line px-3 py-1 font-mono text-xs">{s}</span>)}
+                {b.demo && <a href={b.demo} className="btn-primary" rel="noopener noreferrer">{pt ? "Abrir demo" : "Open demo"}<ArrowUpRight size={15} aria-hidden /></a>}
                 {b.url && <a href={b.url} className="btn-ghost" rel="noopener noreferrer">{pt ? "Ver no GitHub" : "View on GitHub"}<ArrowUpRight size={15} aria-hidden /></a>}
               </div>
             </div>

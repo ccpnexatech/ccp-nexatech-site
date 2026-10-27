@@ -2,14 +2,14 @@
 import React from "react";
 import { Composition, registerRoot, staticFile } from "remotion";
 import { Documentary, DOCUMENTARY } from "./Documentary";
-import { Backstage, BACKSTAGE_REEL } from "./Backstage";
+import { Backstage, backstageMeta } from "./Backstage";
 import { BACKSTAGE } from "../content/profile";
 
 const Root: React.FC = () => (
   <>
     <Composition id="Documentario" component={Documentary} {...DOCUMENTARY} defaultProps={{ lang: "pt" as const, photoSrc: staticFile("caio.jpg") }} />
     {BACKSTAGE.map((b) => (
-      <Composition key={b.slug} id={`Bastidores-${b.slug}`} component={Backstage} {...BACKSTAGE_REEL} defaultProps={{ slug: b.slug, lang: "pt" as const }} />
+      <Composition key={b.slug} id={`Bastidores-${b.slug}`} component={Backstage} {...backstageMeta(b.slug)} defaultProps={{ slug: b.slug, lang: "pt" as const }} />
     ))}
   </>
 );

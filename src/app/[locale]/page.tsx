@@ -7,7 +7,8 @@ import { BackstageSection } from "@/components/story/backstage";
 import { Daily } from "@/components/story/daily";
 import { Projects } from "@/components/story/projects";
 import { NextChapter } from "@/components/story/next";
-import { ContactForm } from "@/components/sections/contact-form";
+import { Contact } from "@/components/story/contact";
+import { CompanyWork } from "@/components/story/company";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -20,9 +21,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Chapters />
       <Metrics />
       <Daily />
+      <CompanyWork />
       <Projects />
       <NextChapter />
-      <ContactForm />
+      <Contact />
     </>
   );
 }

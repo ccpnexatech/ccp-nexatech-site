@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/footer";
 import { A11yBar } from "@/components/a11y/a11y-bar";
 import { PrefsProvider, PREFS_BOOT } from "@/components/a11y/prefs";
 import { personSchema, websiteSchema } from "@/lib/structured-data";
-import { fontSans, fontSerif, fontMono } from "@/lib/fonts";
+import { fontSans, fontSerif, fontMono, fontLegible } from "@/lib/fonts";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -30,7 +30,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={`${fontSans.variable} ${fontSerif.variable} ${fontMono.variable} ${fontLegible.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: PREFS_BOOT }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema()) }} />

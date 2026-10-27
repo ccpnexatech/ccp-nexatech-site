@@ -1,17 +1,19 @@
 import React from "react";
+import { Audio, staticFile } from "remotion";
 import { linearTiming, springTiming, TransitionSeries, type TransitionPresentation } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { wipe } from "@remotion/transitions/wipe";
 import { slide } from "@remotion/transitions/slide";
 import { BACKSTAGE, CHAPTERS, DELIVER, PROFILE, pick, type Lang } from "../content/profile";
 import { ChapterCard, CodeScene, Deliver, DeviceStage, Invite, ProcessMap, Quote, Slate } from "./kit/scenes";
+import { documentaryTimeline, TR } from "./timeline";
 
 export type DocumentaryProps = { lang: Lang; photoSrc: string };
 
-// Duração de cada cena (frames) e das transições.
-const S = [100, 150, 105, 115, 100, 105, 165, 150, 150];
-const TR = 18;
-export const DOCUMENTARY = { fps: 30, width: 1280, height: 720, durationInFrames: S.reduce((a, b) => a + b, 0) - TR * (S.length - 1) };
+// Durações e sons vêm de timeline.ts (mesma conta usada por scripts/audio.py).
+const TL = documentaryTimeline();
+const S = TL.scenes.map((x) => x.dur);
+export const DOCUMENTARY = { fps: 30, width: 1280, height: 720, durationInFrames: TL.total };
 
 const T = {
   pt: { kicker: "Trajetória profissional", deliver: "O que eu entrego", process: ["Pedido", "Regra", "Processo", "Documento"], processTitle: "Do pedido à especificação", inviteK: "Disponível para novas vagas", invite: "Desenvolvedor Front-End & Mobile disponível para novas oportunidades.", points: ["React Native", "React + TypeScript", "APIs REST", "Firebase · Clarity", "Discovery"], cta: "Entre em contato" },
@@ -31,12 +33,14 @@ export const Documentary: React.FC<DocumentaryProps> = ({ lang, photoSrc }) => {
     <ChapterCard key="c2" lang={lang} n={c2.n} years={pick(c2.years, lang)} title={pick(c2.title, lang)} lede={pick(c2.lede, lang)} />,
     <Quote key="q" text={pick(c2.quote!.text, lang)} by={pick(c2.quote!.by, lang)} />,
     <DeviceStage key="d" lang={lang} kind="phone" slug={app.slug} brand={app.color} title={pick(c3.title, lang)} callouts={app.callouts.map((c) => pick(c, lang))} />,
-    <CodeScene key="code" file={ofix.code.file} src={ofix.code.src} note={pick(ofix.code.note, lang)} focusLine={3} />,
+    <CodeScene key="code" file={ofix.code.file} src={ofix.code.src} note={pick(ofix.code.note, lang)} focusLine={ofix.code.focus} />,
     <Invite key="inv" kicker={t.inviteK} title={t.invite} points={t.points} cta={t.cta} contact="linkedin.com/in/caio-cesar-ponte" />,
   ];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const presentations: TransitionPresentation<any>[] = [fade(), wipe({ direction: "from-left" }), fade(), slide({ direction: "from-right" }), fade(), wipe({ direction: "from-bottom" }), slide({ direction: "from-bottom" }), fade()];
   return (
+    <>
+    <Audio src={staticFile("audio/documentario.mp3")} />
     <TransitionSeries>
       {scenes.map((sc, i) => (
         <React.Fragment key={i}>
@@ -47,5 +51,6 @@ export const Documentary: React.FC<DocumentaryProps> = ({ lang, photoSrc }) => {
         </React.Fragment>
       ))}
     </TransitionSeries>
+    </>
   );
 };
