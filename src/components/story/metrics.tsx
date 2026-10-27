@@ -98,7 +98,7 @@ function MonthlyBars({ byMonth, lang }: { byMonth: Record<string, number>; lang:
         {entries.map(([m, v]) => (
           <div key={m} className="flex flex-1 flex-col items-center gap-1">
             <span className="font-mono text-[10px] text-muted">{v}</span>
-            <span className="w-full rounded-t bg-accent" style={{ height: `${(v / max) * 100}%`, minHeight: 2 }} />
+            <span className="w-full rounded-t bg-accent" style={{ height: Math.max(2, Math.round((v / max) * 104)) }} />
             <span className="font-mono text-[10px] uppercase text-muted">{label(m)}</span>
           </div>
         ))}
