@@ -5,6 +5,8 @@ import { NextResponse } from "next/server";
 // - iGit (GitLab da Itarget): calendário e feed de atividade públicos do perfil.
 //   Só números agregados saem daqui — nenhum nome de projeto, branch ou commit da empresa.
 export const dynamic = "force-dynamic";
+// Região de São Paulo: o GitLab da empresa fica no Brasil.
+export const preferredRegion = "gru1";
 const revalidate = 3600;
 const GH_USER = "ccpnexatech";
 const IGIT = "https://igit.itarget.com.br";
@@ -78,7 +80,7 @@ export async function GET() {
   const [gh, ig] = await Promise.allSettled([github(), igit()]);
   return NextResponse.json({
     fetchedAt: new Date().toISOString(),
-    github: gh.status === "fulfilled" ? { ok: true, ...gh.value } : { ok: false },
-    igit: ig.status === "fulfilled" ? { ok: true, ...ig.value } : { ok: false },
+    github: gh.status === "fulfilled" ? { ok: true, ...gh.value } : { ok: false, error: String(gh.reason) },
+    igit: ig.status === "fulfilled" ? { ok: true, ...ig.value } : { ok: false, error: String(ig.reason) },
   });
 }
