@@ -64,7 +64,7 @@ function Heatmap({ calendar, lang, until }: { calendar: Record<string, number>; 
   return (
     <figure>
       <figcaption className="mb-2 text-sm font-semibold">{t.heat}</figcaption>
-      <div className="overflow-x-auto pb-1" tabIndex={0} aria-label={t.heat}>
+      <div className="overflow-x-auto pb-1" tabIndex={0} role="group" aria-label={t.heat}>
         <div className="flex gap-[3px]" aria-hidden>
           {weeks.map((w, i) => (
             <div key={i} className="flex flex-col gap-[3px]">
@@ -164,9 +164,9 @@ export function Metrics() {
                 <Kpi icon={CalendarDays} value={ig?.activeDays} label={t.activeDays} />
                 <Kpi icon={Flame} value={ig?.bestStreak} label={t.streak} />
               </dl>
-              <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-                <div>{ig?.calendar && <Heatmap calendar={ig.calendar} lang={lang} until={ig.updatedAt} />}</div>
-                <div>
+              <div className="mt-8 grid gap-8 xl:grid-cols-[1.4fr_1fr]">
+                <div className="min-w-0">{ig?.calendar && <Heatmap calendar={ig.calendar} lang={lang} until={ig.updatedAt} />}</div>
+                <div className="min-w-0">
                   {ig?.byMonth && <MonthlyBars byMonth={ig.byMonth} lang={lang} />}
                   {ig?.busiestMonth && <p className="mt-3 text-sm text-muted">{t.busiest}: <span className="font-semibold text-ink">{month(ig.busiestMonth.month)}</span> · {ig.busiestMonth.count}</p>}
                 </div>
