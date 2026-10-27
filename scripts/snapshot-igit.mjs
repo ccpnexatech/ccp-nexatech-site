@@ -1,6 +1,6 @@
 // Atualiza o snapshot do calendário público do GitLab da empresa (src/data/igit-calendar.json).
-// O iGit não aceita conexões de servidores externos (Vercel, GitHub Actions), então rode isto
-// numa máquina que alcança igit.itarget.com.br e faça commit do arquivo:  npm run snapshot:igit
+// O GitLab da empresa só é acessível pela rede interna: ligue a VPN, rode
+// npm run snapshot:igit e faça commit do arquivo.
 import { writeFileSync } from "node:fs";
 
 const URL = "https://igit.itarget.com.br/users/caio.cp/calendar.json";

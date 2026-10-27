@@ -3,15 +3,11 @@ import snapshot from "@/data/igit-calendar.json";
 
 // Métricas públicas, cacheadas por 1 hora.
 // - GitHub (projetos independentes): API pública.
-// - iGit (GitLab da Itarget): calendário e feed de atividade públicos do perfil.
+// - GitLab interno da Itarget: export versionado do calendário de contribuições.
 //   Só números agregados saem daqui — nenhum nome de projeto, branch ou commit da empresa.
 export const dynamic = "force-dynamic";
-// Região de São Paulo: o GitLab da empresa fica no Brasil.
-export const preferredRegion = "gru1";
 const revalidate = 3600;
 const GH_USER = "ccpnexatech";
-const IGIT = "https://igit.itarget.com.br";
-const IGIT_USER = "caio.cp";
 
 type Repo = { fork: boolean; stargazers_count: number; language: string | null; pushed_at: string; size: number; name: string };
 type Event = { type: string; created_at: string; payload?: { commits?: unknown[] } };
@@ -42,20 +38,11 @@ async function github() {
 }
 
 async function igit() {
-  // O calendário de contribuições é público, mas o iGit não aceita conexões de servidores
-  // externos. Tenta ao vivo por poucos segundos e, se não der, usa o snapshot versionado
-  // (npm run snapshot:igit, rodado numa máquina com acesso).
-  let calendar: Record<string, number> = snapshot.calendar;
-  let source: "live" | "snapshot" = "snapshot";
-  let updatedAt = snapshot.snapshotAt;
-  try {
-    const r = await fetch(`${IGIT}/users/${IGIT_USER}/calendar.json`, {
-      headers: { Accept: "application/json", "User-Agent": "caio-portfolio" },
-      next: { revalidate },
-      signal: AbortSignal.timeout(3000),
-    });
-    if (r.ok) { calendar = await r.json(); source = "live"; updatedAt = new Date().toISOString(); }
-  } catch { /* usa o snapshot */ }
+  // O GitLab da empresa só é acessível pela rede interna (VPN). Os números vêm de um
+  // export versionado do meu calendário de contribuições (npm run snapshot:igit, com a VPN ligada).
+  const calendar: Record<string, number> = snapshot.calendar;
+  const source = "snapshot" as const;
+  const updatedAt = snapshot.snapshotAt;
   const days = Object.entries(calendar).sort(([a], [b]) => a.localeCompare(b));
   const total = days.reduce((n, [, v]) => n + v, 0);
   const active = days.filter(([, v]) => v > 0);
