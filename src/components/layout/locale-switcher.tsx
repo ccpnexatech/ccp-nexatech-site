@@ -33,7 +33,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
             "text-sm font-semibold px-1.5 py-1 rounded-md transition-colors",
             locale === loc ? "text-ink underline underline-offset-4" : "text-muted hover:text-ink"
           )}
-          aria-label={loc === "en" ? "English" : "Português"}
+          aria-label={loc === "en" ? "EN — English" : "PT — Português"}
           aria-current={locale === loc ? "true" : undefined}
           lang={loc}
         >

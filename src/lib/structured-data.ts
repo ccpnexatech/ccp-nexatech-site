@@ -10,7 +10,6 @@ export function personSchema() {
     jobTitle: PROFILE.role.pt,
     url: SITE_URL,
     image: `${SITE_URL}${PROFILE.photo}`,
-    email: `mailto:${PROFILE.email}`,
     address: { "@type": "PostalAddress", addressLocality: "Fortaleza", addressRegion: "CE", addressCountry: "BR" },
     worksFor: { "@type": "Organization", name: "Itarget Tecnologia" },
     knowsAbout: ["React", "React Native", "TypeScript", "Next.js", "APIs REST", "Firebase"],

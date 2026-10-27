@@ -1,11 +1,11 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { Activity, ArrowRight, MessagesSquare, Plug, Smartphone } from "lucide-react";
+import { ArrowRight, GitPullRequest, MessagesSquare, Plug, Smartphone } from "lucide-react";
 import { DELIVER, langOf, pick } from "@/content/profile";
 import { Reveal, SectionHead } from "./reveal";
 
-const ICONS = { smartphone: Smartphone, plug: Plug, activity: Activity, "messages-square": MessagesSquare } as const;
+const ICONS = { smartphone: Smartphone, plug: Plug, "git-pull-request": GitPullRequest, "messages-square": MessagesSquare } as const;
 
 export function DeliverSection() {
   const lang = langOf(useLocale());

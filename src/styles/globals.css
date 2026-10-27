@@ -58,6 +58,10 @@
 :root[data-font="1"] { font-size: 112.5%; }
 :root[data-font="2"] { font-size: 125%; }
 :root[data-font="3"] { font-size: 140%; }
+:root[data-font="4"] { font-size: 160%; }
+
+/* Fonte de alta legibilidade (Atkinson Hyperlegible) em todo o site */
+:root[data-legible="on"] body, :root[data-legible="on"] .font-serif, :root[data-legible="on"] .font-mono, :root[data-legible="on"] .display { font-family: var(--font-legible), system-ui, sans-serif !important; }
 
 :root[data-underline="on"] a { text-decoration: underline; text-underline-offset: 3px; }
 
