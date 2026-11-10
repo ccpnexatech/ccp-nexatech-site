@@ -121,6 +121,55 @@ export type Backstage = {
 
 export const BACKSTAGE: Backstage[] = [
   {
+    slug: "acessa-evento",
+    name: "Acessa Evento",
+    kind: { pt: "Projeto independente · 80 commits · código aberto (MIT)", en: "Independent project · 80 commits · open source (MIT)" },
+    device: "phone",
+    color: "#0A5C69",
+    url: "https://github.com/ccpnexatech/acessa-evento",
+    ask: {
+      pt: "Em eventos, a entrada depende de lista impressa e da internet do pavilhão, e a pessoa com deficiência precisa explicar o que precisa em cada etapa. O Brasil tem 14,4 milhões de pessoas com deficiência (IBGE, Censo 2022).",
+      en: "At events, entry depends on printed lists and the venue's internet, and people with disabilities have to explain their needs at every step. Brazil has 14.4 million people with disabilities (IBGE, 2022 Census).",
+    },
+    rules: [
+      { pt: "A entrada não pode depender da internet do pavilhão: o leitor da equipe decide sozinho, com a lista baixada antes.", en: "Entry can't depend on the venue's internet: the staff scanner decides on its own, with the list downloaded beforehand." },
+      { pt: "Só passa QR autêntico, deste evento e dentro da validade; o mesmo ingresso em dois portões conta uma vez, e vale o primeiro pelo horário.", en: "Only authentic QR codes for this event and within validity pass; the same ticket at two gates counts once, and the earliest wins." },
+      { pt: "Quem pede um recurso na inscrição (Libras, audiodescrição, acesso sem degraus) não explica de novo: a equipe é avisada no check-in.", en: "Whoever requests a resource at sign-up (sign language, audio description, step-free access) doesn't explain again: staff are told at check-in." },
+    ],
+    decision: {
+      pt: "QR assinado com Ed25519 pela API e conferido no aparelho da equipe, sem rede; check-ins com id gerado no aparelho, reenviados sem duplicar e reconciliados pelo horário no PostgreSQL, com RLS isolando cada evento.",
+      en: "QR signed with Ed25519 by the API and verified on the staff device, offline; check-ins get a device-generated id, are resent without duplicates and reconciled by time in PostgreSQL, with RLS isolating each event.",
+    },
+    code: {
+      file: "apps/mobile/src/features/credenciamento/modelo.ts",
+      lang: "ts",
+      real: true,
+      focus: 7,
+      note: { pt: "Trecho real do repositório público: a decisão do leitor, sem internet.", en: "Real excerpt from the public repository: the scanner's decision, offline." },
+      src: `export function avaliarIngresso(ingressoId: string, pacote: Pacote, locais: readonly CheckinLocal[]): Resultado {
+  const participante = pacote.participantes.find((p) => p.ingressoId === ingressoId) ?? null;
+  const anterior = primeiroCheckin(ingressoId, pacote, locais);
+  return anterior ? { tipo: 'repetido', ingressoId, participante, anterior } : { tipo: 'valido', ingressoId, participante };
+}
+
+export function avaliarLeitura(texto: string, pacote: Pacote, verificador: Verificador, locais: readonly CheckinLocal[], agoraMs: number): Resultado {
+  const leitura = lerToken(texto, verificador, pacote.evento.id, Math.floor(agoraMs / 1000));
+  if (!leitura.ok) return { tipo: 'invalido', motivo: leitura.motivo };
+  return avaliarIngresso(leitura.conteudo.i, pacote, locais);
+}`,
+    },
+    callouts: [
+      { pt: "Agenda com Libras, legenda e audiodescrição", en: "Schedule with sign language and captions" },
+      { pt: "Ingresso com QR que vale sem internet", en: "Ticket QR that works offline" },
+      { pt: "A equipe já sabe o recurso pedido", en: "Staff already know the requested resource" },
+    ],
+    outcome: {
+      pt: "MVP aberto (MIT) e documentado para estudo: 178 testes no app e 176 na API (45 contra PostgreSQL real), 42 de 42 auditorias de acessibilidade sem violação nos 3 temas e 24 decisões registradas em ADR.",
+      en: "Open (MIT) MVP documented for study: 178 tests in the app and 176 in the API (45 against real PostgreSQL), 42 of 42 accessibility audits with no violations across 3 themes, and 24 decisions recorded as ADRs.",
+    },
+    stack: ["React Native", "Expo", "Node.js", "PostgreSQL", "Ed25519"],
+  },
+  {
     slug: "apps",
     name: "Apps white-label",
     kind: { pt: "Itarget Tecnologia · código privado", en: "Itarget Tecnologia · private code" },
@@ -284,6 +333,7 @@ export const COMPANY_WORK: CompanyWork[] = [
 // ---------- Projetos independentes ----------
 export type Project = { name: string; desc: L; stack: string; url?: string; status: L };
 export const ALL_PROJECTS: Project[] = [
+  { name: "Acessa Evento", desc: { pt: "App de eventos acessível: ingresso e check-in por QR sem internet, acessibilidade verificada em código", en: "Accessible events app: offline QR ticket and check-in, accessibility verified in code" }, stack: "Expo · Node.js · PostgreSQL", url: "https://github.com/ccpnexatech/acessa-evento", status: { pt: "Código aberto · MIT", en: "Open source · MIT" } },
   { name: "OFIX", desc: { pt: "SaaS multi-tenant de ordens de serviço, com demo pública", en: "Multi-tenant service-order SaaS with public demo" }, stack: "Next.js · NestJS · Prisma · PostgreSQL", url: "https://github.com/ccpnexatech/ofix", status: { pt: "Publicado · 143 commits", en: "Live · 143 commits" } },
   { name: "FIDC · Onboarding de cedentes", desc: { pt: "Do discovery à API homologada, com regras ligadas à CVM 175", en: "From discovery to an approved API, with rules tied to CVM 175" }, stack: "NestJS · OpenAPI · SQL · Newman", url: "https://github.com/ccpnexatech/fidc-onboarding-cedente", status: { pt: "Em andamento · 61 commits", en: "In progress · 61 commits" } },
   { name: "TransparênciaBR", desc: { pt: "API de inteligência empresarial com dados públicos", en: "Business-intelligence API on public data" }, stack: "Java 21 · Spring Boot · Redis", status: { pt: "Beta privado", en: "Private beta" } },
