@@ -52,7 +52,7 @@ function assemble(scenes: Scene[]): Timeline {
 
 export function documentaryTimeline(): Timeline {
   const [c1, c2] = CHAPTERS;
-  const ofix = BACKSTAGE[1];
+  const ofix = BACKSTAGE.find((b) => b.slug === "ofix") ?? BACKSTAGE[0];
   const codeLines = Math.min(ofix.code.src.split("\n").length, 15);
   return assemble([
     { id: "slate", dur: 90, cues: [{ at: 0, kind: "hit" }] },

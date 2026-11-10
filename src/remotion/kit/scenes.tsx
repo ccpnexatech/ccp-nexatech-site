@@ -2,7 +2,7 @@ import React from "react";
 import { AbsoluteFill, Img, interpolate, useCurrentFrame } from "remotion";
 import { K, MONO, SANS, SERIF } from "./tokens";
 import { Grain, Letterbox, MaskLine, Pop, Rule, clamp, useIn } from "./motion";
-import { AgendaScreen, AppScreen, Browser, Callout, JsonScreen, OrdersScreen, Phone, Rise } from "./devices";
+import { AgendaScreen, AppScreen, Browser, Callout, JsonScreen, OrdersScreen, Phone, Rise, ShotScreen } from "./devices";
 import { CodeCard } from "./code";
 import { KT } from "./i18n";
 import { AT } from "../timeline";
@@ -107,11 +107,17 @@ export const Quote: React.FC<{ text: string; by: string }> = ({ text, by }) => (
   </Paper>
 );
 
+/** Capturas reais por estudo de caso (public/casos), na ordem das anotações. */
+const SHOTS: Record<string, string[]> = {
+  "acessa-evento": ["casos/acessa-evento/agenda.webp", "casos/acessa-evento/ingresso.webp", "casos/acessa-evento/pode-entrar.webp"],
+};
+
 /** Palco de dispositivo com anotações. */
 export const DeviceStage: React.FC<{ kind: "phone" | "browser"; slug: string; brand: string; title: string; callouts: string[]; url?: string; lang?: Lang }> = ({ kind, slug, brand, title, callouts, url, lang = "pt" }) => {
   const f = useCurrentFrame();
   const step = Math.floor(interpolate(f, [0, 150], [0, 3], clamp)) % 3;
-  const screen = kind === "phone" ? <AppScreen brand={brand} step={step} lang={lang} /> : slug === "ofix" ? <OrdersScreen lang={lang} /> : slug === "agendaflow" ? <AgendaScreen lang={lang} /> : <JsonScreen />;
+  const shots = SHOTS[slug];
+  const screen = shots ? <ShotScreen shots={shots} step={step} /> : kind === "phone" ? <AppScreen brand={brand} step={step} lang={lang} /> : slug === "ofix" ? <OrdersScreen lang={lang} /> : slug === "agendaflow" ? <AgendaScreen lang={lang} /> : <JsonScreen />;
   return (
     <Paper>
       <div style={{ position: "absolute", left: 110, top: 90, width: 440 }}>
