@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { BACKSTAGE } from "../../src/content/profile";
 
 // Estado dos <audio> que o Remotion cria para cada vídeo.
 const audios = (page: Page) =>
@@ -22,7 +23,7 @@ test.describe("som dos vídeos", () => {
     // ativa o som do estudo de caso: o documentário precisa silenciar
     await page.locator("#bastidores").scrollIntoViewIfNeeded();
     await page.locator("#bastidores").getByRole("button", { name: "Ouvir com som" }).click();
-    await expect.poll(async () => (await audios(page)).filter((a) => a.audible).map((a) => a.src)).toEqual(["bastidores-apps.mp3"]);
+    await expect.poll(async () => (await audios(page)).filter((a) => a.audible).map((a) => a.src)).toEqual([`bastidores-${BACKSTAGE[0].slug}.mp3`]); // o caso da primeira aba
     await expect(page.getByRole("button", { name: "Ouvir com som" }).first()).toBeVisible(); // botão do documentário voltou ao estado sem som
   });
 

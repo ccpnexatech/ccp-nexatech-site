@@ -1,9 +1,18 @@
 import React from "react";
-import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
+import { Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { K, MONO, SANS } from "./tokens";
 import { clamp, ease } from "./motion";
 import { KT } from "./i18n";
 import type { Lang } from "../../content/profile";
+
+/* ---------- Capturas reais (projetos com app aberto) ---------- */
+
+/** Capturas do emulador, uma por passo; o texto alternativo fica no player da página. */
+export const ShotScreen: React.FC<{ shots: string[]; step: number }> = ({ shots, step }) => (
+  <div style={{ position: "absolute", inset: 0, background: "#fff" }}>
+    <Img src={staticFile(shots[step % shots.length])} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }} />
+  </div>
+);
 
 /* ---------- Telas procedurais (sem screenshots reais) ---------- */
 

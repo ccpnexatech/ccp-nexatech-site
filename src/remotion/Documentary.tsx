@@ -23,8 +23,9 @@ const T = {
 export const Documentary: React.FC<DocumentaryProps> = ({ lang, photoSrc }) => {
   const t = T[lang];
   const [c1, c2, c3] = CHAPTERS;
-  const app = BACKSTAGE[0];
-  const ofix = BACKSTAGE[1];
+  const caso = (slug: string) => BACKSTAGE.find((b) => b.slug === slug) ?? BACKSTAGE[0];
+  const app = caso("apps");
+  const ofix = caso("ofix");
   const scenes = [
     <Slate key="s" kicker={t.kicker} title={PROFILE.name} meta={`${pick(PROFILE.role, lang).toUpperCase()} · FORTALEZA · 2022 — 2026`} />,
     <Deliver key="dv" photo={photoSrc} name={PROFILE.name} role={pick(PROFILE.role, lang)} title={t.deliver} items={DELIVER.map((d) => ({ h: pick(d.h, lang), p: pick(d.proof, lang) }))} />,
